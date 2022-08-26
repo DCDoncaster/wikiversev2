@@ -1,13 +1,21 @@
-import React, {useState, useEffect} from "react";
-import apiURL from '../api';
+import React, {useState, useEffect, Component} from 'react'
+import apiURL from '../api'
 
 
-export const AddPage = ({setCurrentPageView}) => {
+function addPage() {
+  return (
+    <div>addPage</div>
+  )
+}
 
-    const [formInputs, setFormInputs] = useState({})
+export default addPage
+
+export const AddPage = ({selectedPage, setSelectedPage, formInputs, setFormInputs, fetchPages}) => {
+
 
     async function sumbitHandler (e) {
         e.preventDefault()
+        
         try {
             const response = await fetch(`${apiURL}/wiki`, {
                 method: 'POST',
@@ -21,11 +29,11 @@ export const AddPage = ({setCurrentPageView}) => {
             })
             const data = await response.json()
             console.log(data)
-            console.log(formInputs)
+            // console.log(formInputs)
             let newobj = {}
-            setFormInputs(newobj)
-            console.log(formInputs)
-        
+            setFormInputs({})
+            // console.log(formInputs)
+            fetchPages()
         } catch (err) {
             console.log(err)
 
@@ -37,7 +45,8 @@ export const AddPage = ({setCurrentPageView}) => {
         let formData = formInputs
         formData[e.target.name] = e.target.value
         setFormInputs(formData)
-        console.log(formInputs)
+        // console.log(formInputs)
+        
     }
 
     return <div>
@@ -46,26 +55,21 @@ export const AddPage = ({setCurrentPageView}) => {
                 <label htmlFor="title">Title</label>
                 <input name="title" value={formInputs.title} onChange={onChangeHandler}></input>
             </div>
+  
             <div>
-                <label htmlFor="slug">url_slug</label>
-                <input name="slug" value={formInputs.slug} onChange={onChangeHandler}></input>
-            </div>
-
-            <div>
-                <label htmlFor="content">content</label>
+                <label htmlFor="content">Content: </label>
                 <input name="content" value={formInputs.content} onChange={onChangeHandler}></input>
             </div>
 
             <div>
-                <label htmlFor="name" value={formInputs.name} >name</label>
+                <label htmlFor="name" value={formInputs.name} >Author Name: </label>
                 <input name="name" value={formInputs.name} onChange={onChangeHandler}></input>
             </div>
             <div>
-                <label htmlFor="email">Email</label>
+                <label htmlFor="email">e-mail: </label>
                 <input name="email" value={formInputs.email} onChange={onChangeHandler}></input>
             </div>
 
-            <button onClick={()=> setCurrentPageView(0)}>Cancel</button>
             <button form="newPage">Submit</button>
 
         </form>

@@ -19,18 +19,19 @@ async function fetchUsers() {
 
 
 
-export const ContentDisplay = (props) => {
+export const ContentDisplay = ({selectedPage, setSelectedPage, fetchPages}) => {
   let tagNames =''
 fetchUsers()
-let string = JSON.stringify(props.selectedPage.tags)
 
 
 async function nukePage(e){
   e.preventDefault()
-  
-  const response = await fetch(`${apiURL}/wiki/` + props.selectedPage.slug, {
+  const response = await fetch(`${apiURL}/wiki/` + selectedPage.slug, {
     method: 'DELETE'}    
-)}
+)
+setSelectedPage(0)
+fetchPages()
+}
 
 
 
@@ -39,12 +40,15 @@ async function nukePage(e){
 // #TODO add tags in same way 
   return <>
 
-<div id="author">{props.selectedPage ? <h3>Author</h3>:""}{props.selectedPage ? userData[props.selectedPage.authorId-1].name: ""}</div>
-<div id="content">{props.selectedPage ? <h3>Content:</h3>:""}{props.selectedPage ? props.selectedPage.content : ""}</div>
-<div id="Date">{props.selectedPage ? <h3>Created Date:</h3>:""}{props.selectedPage ? props.selectedPage.createdAt.slice(0,10) : ""}</div>
-<div id="Tags">{props.selectedPage ? props.selectedPage.tags.forEach(element => {tagNames += ('#'+element.name + ' ')}): ""}{props.selectedPage ? <><h3>Tags: </h3>{tagNames}</>:""} </div>
-<div id='deleteBtn'>{props.selectedPage ? <button onClick={nukePage}>DELETE</button> : ""}</div>
+<div id="author">{selectedPage ? <h3>Author</h3>:""}{selectedPage ? userData[selectedPage.authorId-1].name: ""}</div>
+<div id="content">{selectedPage ? <h3>Content:</h3>:""}{selectedPage ? selectedPage.content : ""}</div>
+<div id="Date">{selectedPage ? <h3>Created Date:</h3>:""}{selectedPage ? selectedPage.createdAt.slice(0,10) : ""}</div>
+<div id="Tags">{selectedPage ? selectedPage.tags.forEach(element => {tagNames += ('#'+element.name + ' ')}): ""}{selectedPage ? <><h3>Tags: </h3>{tagNames}</>:""} </div>
+<div id='deleteBtn'>{selectedPage ? <button onClick={nukePage}>DELETE</button> : ""}</div>
+
+
   </>
 } 
  
 // 
+
