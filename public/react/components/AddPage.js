@@ -55,7 +55,7 @@ export const AddPage = ({selectedPage, setSelectedPage, formInputs, setFormInput
                 <label htmlFor="title">Title</label>
                 <input name="title" value={formInputs.title} onChange={onChangeHandler}></input>
             </div>
-  =>
+  
             <div>
                 <label htmlFor="content">Content: </label>
                 <input name="content" value={formInputs.content} onChange={onChangeHandler}></input>
