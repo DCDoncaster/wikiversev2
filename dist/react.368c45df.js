@@ -30471,37 +30471,37 @@ function fetchUsers() {
 }
 
 function _fetchUsers() {
-  _fetchUsers = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+  _fetchUsers = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
     var response;
-    return _regeneratorRuntime().wrap(function _callee$(_context) {
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) {
-        switch (_context.prev = _context.next) {
+        switch (_context2.prev = _context2.next) {
           case 0:
-            _context.prev = 0;
-            _context.next = 3;
+            _context2.prev = 0;
+            _context2.next = 3;
             return fetch("".concat(_api.default, "/users/"));
 
           case 3:
-            response = _context.sent;
-            _context.next = 6;
+            response = _context2.sent;
+            _context2.next = 6;
             return response.json();
 
           case 6:
-            userData = _context.sent;
-            _context.next = 12;
+            userData = _context2.sent;
+            _context2.next = 12;
             break;
 
           case 9:
-            _context.prev = 9;
-            _context.t0 = _context["catch"](0);
-            console.log("Oh no an error! ", _context.t0);
+            _context2.prev = 9;
+            _context2.t0 = _context2["catch"](0);
+            console.log("Oh no an error! ", _context2.t0);
 
           case 12:
           case "end":
-            return _context.stop();
+            return _context2.stop();
         }
       }
-    }, _callee, null, [[0, 9]]);
+    }, _callee2, null, [[0, 9]]);
   }));
   return _fetchUsers.apply(this, arguments);
 }
@@ -30509,8 +30509,39 @@ function _fetchUsers() {
 var ContentDisplay = function ContentDisplay(props) {
   var tagNames = '';
   fetchUsers();
-  var string = JSON.stringify(props.selectedPage.tags); // #TODO find a way to get userdata without pulling globally
+  var string = JSON.stringify(props.selectedPage.tags);
+
+  function nukePage(_x) {
+    return _nukePage.apply(this, arguments);
+  } // #TODO find a way to get userdata without pulling globally
   // #TODO add tags in same way 
+
+
+  function _nukePage() {
+    _nukePage = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
+      var response;
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              e.preventDefault();
+              _context.next = 3;
+              return fetch("".concat(_api.default, "/wiki/") + props.selectedPage.slug, {
+                method: 'DELETE'
+              });
+
+            case 3:
+              response = _context.sent;
+
+            case 4:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+    return _nukePage.apply(this, arguments);
+  }
 
   return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", {
     id: "author"
@@ -30522,7 +30553,11 @@ var ContentDisplay = function ContentDisplay(props) {
     id: "Tags"
   }, props.selectedPage ? props.selectedPage.tags.forEach(function (element) {
     tagNames += '#' + element.name + ' ';
-  }) : "", props.selectedPage ? /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("h3", null, "Tags: "), " ", /*#__PURE__*/_react.default.createElement("p", null, tagNames)) : ""));
+  }) : "", props.selectedPage ? /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("h3", null, "Tags: "), tagNames) : "", " "), /*#__PURE__*/_react.default.createElement("div", {
+    id: "deleteBtn"
+  }, props.selectedPage ? /*#__PURE__*/_react.default.createElement("button", {
+    onClick: nukePage
+  }, "DELETE") : ""));
 }; // 
 
 
@@ -30682,7 +30717,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57323" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49178" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
