@@ -6,7 +6,7 @@ import { AddPage } from "./AddPage";
 // import and prepend the api url to any fetch calls
 import apiURL from "../api";
 
-export const App = () => {
+export const App = () =>  {
   const [pages, setPages] = useState([]);
   const [selectedPage, setSelectedPage] = useState("");
   const [formInputs, setFormInputs] = useState({})
